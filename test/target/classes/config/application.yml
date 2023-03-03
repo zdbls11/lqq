@@ -1,0 +1,28 @@
+server:
+  port: 8012
+  session-timeout: 30
+  tomcat.uri-encoding: UTF-8
+
+spring:
+  datasource:
+    url : jdbc:mysql://localhost:3306/lqq
+    username : root
+    password : root
+    driverClassName : com.mysql.cj.jdbc.Driver
+    servlet:
+      multipart:
+        max-file-size: 200MB
+        max-request-size: 200MB
+
+minio:
+    endpoint: http://127.0.0.1:9000
+    accessKey: minioadmin
+    secretKey: minioadmin
+    bucketName: lqq
+
+#mybatis-plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #开启sql日志
+    map-underscore-to-camel-case: true
+#  mapper-locations: classpath*:mapper/*.xml
