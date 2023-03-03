@@ -19,7 +19,6 @@ import java.util.Objects;
  */
 @RestController
 public class AreaController {
-//好诶
     @Resource
     private AreaService areaService;
 
