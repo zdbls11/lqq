@@ -25,6 +25,7 @@ public class MinioController {
     @Value("${minio.bucketName}")
     private String bucketName;
 
+    //通用上传文件接口
     @PostMapping("/upload")
     public Object upload(MultipartFile file) {
 
@@ -38,6 +39,7 @@ public class MinioController {
         minioUtils.download(fileName);
     }
 
+    //通用下载文件接口
     @GetMapping("/download")
     public void download(@RequestParam("file_name") String fileName, HttpServletResponse response) {
         try {
