@@ -11,32 +11,28 @@ import java.io.Serializable;
 
 /**
  * @Author: liuwenpeng
- * @Date : 2023/3/2
+ * @Date : 2023/3/8
  */
-@TableName("`area`")
+@TableName("`area_icon`")
 @Getter
 @Setter
-public class Area implements Serializable {
+public class AreaIcon implements Serializable {
+
     @TableId(value = "`id`", type = IdType.ASSIGN_ID)
     private Long id;
     /**
      * 是否启用
      */
-    @TableField("`is_enable`")
+    @TableField("`area_id`")
     private Boolean isEnable = true;
     /**
-     * 场馆姓名
+     * 场馆图片路径
      */
-    @TableField("`name`")
-    private String name;
+    @TableField("`icon`")
+    private String icon;
     /**
-     * 备注
+     * 排序
      */
-    @TableField("`remark`")
-    private String remark;
-    /**
-     * 可用人数
-     */
-    @TableField("`num`")
-    private Integer num;
+    @TableField("`sort`")
+    private String sort;
 }
