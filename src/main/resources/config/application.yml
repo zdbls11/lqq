@@ -4,6 +4,9 @@ server:
   tomcat.uri-encoding: UTF-8
 
 spring:
+  main:
+#允许循环调用
+    allow-circular-references: true
   datasource:
     url : jdbc:mysql://localhost:3306/lqq
     username : root

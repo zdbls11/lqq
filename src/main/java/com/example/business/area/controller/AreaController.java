@@ -33,7 +33,7 @@ public class AreaController {
         return areaService.addArea(request);
     }
 
-    @RequestMapping("/area/delete/#{id}")
+    @RequestMapping("/area/delete/{id}")
     public ApiResult<?> deleteArea(@PathVariable Long id) {
         return areaService.deleteArea(id);
     }
