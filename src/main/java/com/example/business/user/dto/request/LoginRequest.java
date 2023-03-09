@@ -16,5 +16,5 @@ public class LoginRequest {
 
     private String mobile;
 
-    private Blob icon;
+    private String icon;
 }

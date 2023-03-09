@@ -14,5 +14,6 @@ import java.util.List;
  */
 @Mapper
 public interface AreaMapper extends BaseMapper<Area> {
-
+    @Select("select area_icon.icon from area_icon,area where area_icon.area_id = area.id and area.id = #{id}")
+    List<String> findIcon(Long id);
 }

@@ -21,10 +21,10 @@ public class AreaIcon implements Serializable {
     @TableId(value = "`id`", type = IdType.ASSIGN_ID)
     private Long id;
     /**
-     * 是否启用
+     * 场馆id
      */
     @TableField("`area_id`")
-    private Boolean isEnable = true;
+    private Long areaId ;
     /**
      * 场馆图片路径
      */
@@ -34,5 +34,5 @@ public class AreaIcon implements Serializable {
      * 排序
      */
     @TableField("`sort`")
-    private String sort;
+    private Integer sort;
 }

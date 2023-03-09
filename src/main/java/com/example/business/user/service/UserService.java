@@ -37,8 +37,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         user.setUsername(request.getUsername());
         user.setName(request.getName());
         user.setMobile(request.getMobile());
-//        byte[] bytes = file.getBytes();
-//        user.setIcon(file);
+        user.setIcon(request.getIcon());
         this.save(user);
 //        userMapper.insert(user);
         return ApiResult.ok("创建用户成功");

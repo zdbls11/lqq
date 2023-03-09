@@ -55,5 +55,5 @@ public class User implements Serializable {
      * 头像
      */
     @TableField("`icon`")
-    private Setter icon;
+    private String icon;
 }
