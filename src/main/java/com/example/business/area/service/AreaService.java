@@ -9,10 +9,8 @@ import com.example.business.area.entity.Area;
 import com.example.business.area.entity.AreaIcon;
 import com.example.business.area.mapper.AreaMapper;
 import com.example.business.user.entity.ApiResult;
-import com.example.business.user.entity.User;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,7 +87,7 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
         //判断场馆是否存在
         LambdaQueryWrapper<Area> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Area::getId,request.getId());
-        if(this.list().size()!=1) return ApiResult.fail("场馆不存在");
+        if(this.list(wrapper).size()!=1) return ApiResult.fail("场馆不存在");
 
         //保存场馆信息
         Area area = this.getOne(wrapper);

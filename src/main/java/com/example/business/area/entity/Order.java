@@ -32,15 +32,15 @@ public class Order implements Serializable {
     @TableField("`area_id`")
     private Long areaId;
     /**
-     * 预约开始时间
+     * 预约日期
      */
-    @TableField("`begin_date`")
-    private Date beginDate;
+    @TableField("`order_date`")
+    private Date orderDate;
     /**
-     * 预约结束时间
+     * 预约时间段
      */
-    @TableField("`end_date`")
-    private Date endDate;
+    @TableField("`time`")
+    private Integer time;
     /**
      * 预约人数
      */
