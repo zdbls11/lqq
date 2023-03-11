@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.business.area.dto.request.OrderAreaRequest;
 import com.example.business.area.dto.request.QueryOrderRequest;
+import com.example.business.area.dto.request.SelectLeaveNumRequest;
 import com.example.business.area.dto.response.QueryOrderResponse;
+import com.example.business.area.dto.response.SelectLeaveNumResponse;
 import com.example.business.area.entity.Area;
 import com.example.business.area.entity.Order;
 import com.example.business.area.mapper.OrderMapper;
@@ -126,5 +128,25 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
         }
         return ApiResult.ok(responses, Integer.toString(count));
 
+    }
+
+    public ApiResult<?>selectLeaveNum(SelectLeaveNumRequest request){
+        List<SelectLeaveNumResponse> responses = new ArrayList<>();
+        Area area = areaService.getById(request.getArea_id());
+        for(int i = 1;i<=8;i++){
+            LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Order::getAreaId,request.getArea_id());
+            wrapper.eq(Order::getTime,i);
+            List<Order> list = this.list(wrapper);
+            Integer num = 0;
+            for(Order order:list){
+                num+=order.getNum();
+            }
+            SelectLeaveNumResponse response = new SelectLeaveNumResponse();
+            response.setLeave_num(area.getNum()-num);
+            response.setTime(i+"");
+            responses.add(response);
+        }
+        return ApiResult.ok(responses);
     }
 }

@@ -1,9 +1,6 @@
 package com.example.business.area.controller;
 
-import com.example.business.area.dto.request.AddAreaRequest;
-import com.example.business.area.dto.request.OrderAreaRequest;
-import com.example.business.area.dto.request.QueryAreaRequest;
-import com.example.business.area.dto.request.QueryOrderRequest;
+import com.example.business.area.dto.request.*;
 import com.example.business.area.mapper.AreaMapper;
 import com.example.business.area.service.AreaService;
 import com.example.business.area.service.OrderService;
@@ -64,5 +61,11 @@ public class AreaController {
     @RequestMapping("/query_order")
     public ApiResult<?> queryOrder(@Valid @RequestBody QueryOrderRequest request){
         return orderService.queryOrder(request);
+    }
+
+    //查询场馆当前可预约人数
+    @RequestMapping("/select_leave_num")
+    public ApiResult<?> selectLeaveNum(@Valid @RequestBody SelectLeaveNumRequest request){
+        return orderService.selectLeaveNum(request);
     }
 }
