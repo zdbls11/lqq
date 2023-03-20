@@ -55,7 +55,7 @@ public class UserController {
     }
     //删除用户
     @RequestMapping("/delete_user/{id}")
-    public ApiResult<?> deleteUser(@PathVariable Integer id){
+    public ApiResult<?> deleteUser(@PathVariable String id){
         return userService.deleteUser(id);
     }
     //用户分页查询

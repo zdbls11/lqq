@@ -1,16 +1,13 @@
 package com.example.business.area.controller;
 
 import com.example.business.area.dto.request.*;
-import com.example.business.area.mapper.AreaMapper;
 import com.example.business.area.service.AreaService;
 import com.example.business.area.service.OrderService;
-import com.example.business.user.dto.request.QueryUserRequest;
 import com.example.business.user.entity.ApiResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @Author: liuwenpeng
@@ -24,7 +21,7 @@ public class AreaController {
     @Resource
     private OrderService orderService;
 
-    //场馆增删改查
+    //场馆增删改查 Post Get Put Patch Delete
     @RequestMapping("/area/add")
     public ApiResult<?> addArea(@RequestBody @Valid AddAreaRequest request) {
         return areaService.addArea(request);

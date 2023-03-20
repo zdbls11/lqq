@@ -11,7 +11,7 @@
  Target Server Version : 50738
  File Encoding         : 65001
 
- Date: 09/03/2023 20:26:36
+ Date: 20/03/2023 22:15:36
 */
 
 SET NAMES utf8mb4;
@@ -31,6 +31,11 @@ CREATE TABLE `area`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '场馆信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of area
+-- ----------------------------
+INSERT INTO `area` VALUES (1, 'xx体育馆', 'xxxxxxx', 8, 1);
+
+-- ----------------------------
 -- Table structure for area_icon
 -- ----------------------------
 DROP TABLE IF EXISTS `area_icon`;
@@ -41,6 +46,12 @@ CREATE TABLE `area_icon`  (
   `sort` tinyint(10) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '场馆图片关联表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of area_icon
+-- ----------------------------
+INSERT INTO `area_icon` VALUES (998, 1, 'http：xxxxxsss', 2);
+INSERT INTO `area_icon` VALUES (999, 1, 'http：xxxxx', 1);
 
 -- ----------------------------
 -- Table structure for message
@@ -67,6 +78,11 @@ CREATE TABLE `order`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '预约信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of order
+-- ----------------------------
+INSERT INTO `order` VALUES (656, 1, 6, '2023-03-21 21:03:15', 2, 6);
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -78,8 +94,17 @@ CREATE TABLE `user`  (
   `role` int(10) DEFAULT 1 COMMENT '角色 0 管理员；1 普通用户',
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '姓名',
   `mobile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
-  `icon` varchar(0) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像文件路径',
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像文件路径',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1631187379897827330 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1637814373339774978 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES (1, 'lwp', '111', 1, 1, '', '', NULL);
+INSERT INTO `user` VALUES (2, 'lwpw', '222', 1, 1, '', '', NULL);
+INSERT INTO `user` VALUES (132722689, '3', '111', 1, 1, '', '', NULL);
+INSERT INTO `user` VALUES (1948856322, '1', '111', 1, 1, '', '', NULL);
+INSERT INTO `user` VALUES (1631187379897827329, 'htt', '123', 1, 1, 'tin儿tin儿姐', '12345', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

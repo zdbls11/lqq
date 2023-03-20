@@ -10,7 +10,6 @@ import com.example.business.user.entity.ApiResult;
 import com.example.business.user.entity.User;
 import com.example.business.user.mapper.UserMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -28,9 +27,10 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
 
     public ApiResult<?> addUser(LoginRequest request){
+        //mybatis plus的使用
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(User::getUsername,request.getUsername());
-        List<User> list = this.list(wrapper);
+        wrapper.eq(User::getUsername,request.getUsername());//select xxx from user where username = #{username}
+        List<User> list = this.list(wrapper);//select xxx from user  where username = #{username}
         if(!list.isEmpty()) return ApiResult.fail("用户名已存在");
         User user = new User();
         user.setPassword(request.getPassword());
@@ -39,11 +39,10 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         user.setMobile(request.getMobile());
         user.setIcon(request.getIcon());
         this.save(user);
-//        userMapper.insert(user);
         return ApiResult.ok("创建用户成功");
     }
 
-    public ApiResult<?> deleteUser(Integer id){
+    public ApiResult<?> deleteUser(String id){
         this.removeById(id);
         return ApiResult.ok("删除用户成功");
     }
