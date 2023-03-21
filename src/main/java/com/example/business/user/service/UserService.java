@@ -9,6 +9,7 @@ import com.example.business.user.dto.request.QueryUserRequest;
 import com.example.business.user.entity.ApiResult;
 import com.example.business.user.entity.User;
 import com.example.business.user.mapper.UserMapper;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,7 +26,6 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     @Resource
     private UserMapper userMapper;
 
-
     public ApiResult<?> addUser(LoginRequest request){
         //mybatis plus的使用
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
@@ -33,7 +33,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         List<User> list = this.list(wrapper);//select xxx from user  where username = #{username}
         if(!list.isEmpty()) return ApiResult.fail("用户名已存在");
         User user = new User();
-        user.setPassword(request.getPassword());
+        //通过盐值对密码进行加密处理
+        String salt = "lqq";
+        user.setPassword(DigestUtils.sha256Hex(request.getPassword()+ salt));
         user.setUsername(request.getUsername());
         user.setName(request.getName());
         user.setMobile(request.getMobile());

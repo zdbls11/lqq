@@ -6,6 +6,7 @@ import com.example.business.user.dto.request.QueryUserRequest;
 import com.example.business.user.entity.ApiResult;
 import com.example.business.user.entity.User;
 import com.example.business.user.mapper.UserMapper;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,15 +35,16 @@ public class UserController {
     //登录
     @RequestMapping("/login")
     public ApiResult<?> login(@Valid @RequestBody LoginRequest request){
+        String salt = "lqq";
         List<User> list = userMapper.find(request.getUsername());
         if(list.size()==0){
             return ApiResult.fail("用户名不存在");
         }
-        if(Objects.equals(list.get(0).getPassword(), request.getPassword())){
+        if(Objects.equals(list.get(0).getPassword(), DigestUtils.sha256Hex(request.getPassword()+ salt))){
             if(!list.get(0).getIsEnable()){
                 return ApiResult.fail("用户已禁用");
             }
-            list.get(0).setPassword("****");
+//            list.get(0).setPassword("****");
             return ApiResult.ok(list.get(0),"登录成功");
         }else {
             return ApiResult.fail("密码错误");
