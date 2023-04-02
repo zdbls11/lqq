@@ -80,6 +80,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             if(!Objects.equals(user.getPassword(), DigestUtils.sha256Hex(request.getOld_password() + this.salt))){
                 return ApiResult.fail("旧密码输入错误");
             }
+            if(Objects.equals(request.getOld_password(), request.getNew_password())){
+                return ApiResult.fail("新旧密码不能相同");
+            }
             user.setPassword(DigestUtils.sha256Hex(request.getNew_password() + this.salt));
         }
         //修改头像

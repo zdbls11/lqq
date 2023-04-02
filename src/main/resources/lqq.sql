@@ -11,7 +11,7 @@
  Target Server Version : 50738
  File Encoding         : 65001
 
- Date: 20/03/2023 22:15:36
+ Date: 02/04/2023 14:50:33
 */
 
 SET NAMES utf8mb4;
@@ -96,7 +96,7 @@ CREATE TABLE `user`  (
   `mobile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
   `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像文件路径',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1637814373339774978 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1642361033009082371 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -106,5 +106,6 @@ INSERT INTO `user` VALUES (2, 'lwpw', '222', 1, 1, '', '', NULL);
 INSERT INTO `user` VALUES (132722689, '3', '111', 1, 1, '', '', NULL);
 INSERT INTO `user` VALUES (1948856322, '1', '111', 1, 1, '', '', NULL);
 INSERT INTO `user` VALUES (1631187379897827329, 'htt', '123', 1, 1, 'tin儿tin儿姐', '12345', NULL);
+INSERT INTO `user` VALUES (1642361033009082370, 'admin', 'd0db7899b8485e4e1743afcfb38b133ad579fe1f15dac7fc9fb8c861df028729', 1, 0, 'admin', 'admin', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
