@@ -58,6 +58,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         if(request.getUsername()!=null){
             wrapper.like(User::getUsername,request.getUsername());
         }
+        if(request.getId()!=null){
+            wrapper.like(User::getId,request.getId());
+        }
         Page<User> page = PageHelper.startPage(request.getPage(),request.getPage_size());
         PageInfo<User> users =PageInfo.of( this.list(wrapper));
         page.close();

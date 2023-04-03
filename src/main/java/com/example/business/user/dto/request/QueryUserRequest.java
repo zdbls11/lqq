@@ -20,4 +20,6 @@ public class QueryUserRequest {
      * 用户名
      */
     private String username;
+
+    private Long id;
 }
