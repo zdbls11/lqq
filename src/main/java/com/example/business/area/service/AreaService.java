@@ -11,6 +11,7 @@ import com.example.business.area.mapper.AreaMapper;
 import com.example.business.user.entity.ApiResult;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -129,12 +130,11 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
         if(request.getMin()!=null){
             wrapper.gt(Area::getNum,request.getMin());
         }
-        long count = this.count(wrapper);
         Page<Area> page = PageHelper.startPage(request.getPage(),request.getPage_size());
-        List<Area> list = this.list(wrapper);
+        PageInfo<Area> list = PageInfo.of(this.list(wrapper));
         page.close();
         List<QueryAreaResponse> responses = new ArrayList<>();
-        for(Area area :list){
+        for(Area area :list.getList()){
             QueryAreaResponse response = new QueryAreaResponse();
             response.setId(area.getId());
             response.setName(area.getName());
@@ -143,6 +143,6 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
             response.setIcons(areaMapper.findIcon(area.getId()));
             responses.add(response);
         }
-        return ApiResult.ok(responses,String.valueOf(count));
+        return ApiResult.ok(responses,String.valueOf(list.getTotal()));
     }
 }

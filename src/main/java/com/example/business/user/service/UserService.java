@@ -10,6 +10,7 @@ import com.example.business.user.dto.request.QueryUserRequest;
 import com.example.business.user.entity.ApiResult;
 import com.example.business.user.entity.User;
 import com.example.business.user.mapper.UserMapper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
@@ -57,12 +58,11 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         if(request.getUsername()!=null){
             wrapper.like(User::getUsername,request.getUsername());
         }
-        long count = this.count(wrapper);
         Page<User> page = PageHelper.startPage(request.getPage(),request.getPage_size());
-        List<User> users = this.list(wrapper);
+        PageInfo<User> users =PageInfo.of( this.list(wrapper));
         page.close();
         List<QueryUserResponse> responses = new ArrayList<>();
-        for(User user:users){
+        for(User user:users.getList()){
             QueryUserResponse response = new QueryUserResponse();
             response.setMobile(user.getMobile());
             response.setName(user.getName());
@@ -70,7 +70,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             response.setUsername(user.getUsername());
             responses.add(response);
         }
-        return ApiResult.ok(responses,String.valueOf(count));
+        return ApiResult.ok(responses,String.valueOf(users.getTotal()));
     }
 
     public ApiResult<?> updateUser(UpdateRequest request){

@@ -15,6 +15,7 @@ import com.example.business.user.entity.User;
 import com.example.business.user.service.UserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -109,13 +110,12 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
 
     public ApiResult<?>queryOrder(QueryOrderRequest request){
         List<QueryOrderResponse> responses = new ArrayList<>();
-        int count = orderMapper.queryOrder(request).size();
         Page<Order> page = PageHelper.startPage(request.getPage(),request.getPage_size());
-        List<Order> orders = orderMapper.queryOrder(request);
+        PageInfo<Order> orders = PageInfo.of(orderMapper.queryOrder(request));
         page.close();
         Map<Long, String> area_map = areaService.list().stream().collect(Collectors.toMap(Area::getId, Area::getName));
         Map<Long, String> user_map = userService.list().stream().collect(Collectors.toMap(User::getId, User::getName));
-        for(Order order:orders){
+        for(Order order:orders.getList()){
             QueryOrderResponse response = new QueryOrderResponse();
             response.setOrder_id(order.getId());
             response.setArea(area_map.get(order.getAreaId()));
@@ -126,7 +126,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             response.setDay(sdf.format(order.getOrderDate()));
             responses.add(response);
         }
-        return ApiResult.ok(responses, Integer.toString(count));
+        return ApiResult.ok(responses, String.valueOf(orders.getTotal()));
 
     }
 
