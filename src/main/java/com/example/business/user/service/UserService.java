@@ -71,6 +71,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             response.setName(user.getName());
             response.setRole(user.getRole());
             response.setUsername(user.getUsername());
+            response.setId(user.getId());
             responses.add(response);
         }
         return ApiResult.ok(responses,String.valueOf(users.getTotal()));

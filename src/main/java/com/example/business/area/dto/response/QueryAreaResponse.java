@@ -1,5 +1,7 @@
 package com.example.business.area.dto.response;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 public class QueryAreaResponse{
+    @JsonSerialize(using= ToStringSerializer.class)
     private Long id;
 
     private String name;

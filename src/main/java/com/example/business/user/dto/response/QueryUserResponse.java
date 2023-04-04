@@ -1,5 +1,7 @@
 package com.example.business.user.dto.response;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 /**
@@ -12,4 +14,6 @@ public class QueryUserResponse {
     private String mobile;
     private Integer role;
     private String username;
+    @JsonSerialize(using= ToStringSerializer.class)
+    private Long id;
 }
