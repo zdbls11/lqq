@@ -54,18 +54,20 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
         this.save(area);
 
         //保存场馆图片信息
-        List<AreaIcon> areaIconList = new ArrayList<>();
-        int i = 1;
-        for(String icon:request.getIcons()){
-            AreaIcon areaIcon = new AreaIcon();
-            areaIcon.setIcon(icon);
-            areaIcon.setAreaId(area.getId());
-            areaIcon.setSort(i);
-            areaIconList.add(areaIcon);
-            i++;
-        }
-        if(!areaIconList.isEmpty()){
-            areaIconService.saveBatch(areaIconList);
+        if(request.getIcons()!=null&&request.getIcons().size()>0){
+            List<AreaIcon> areaIconList = new ArrayList<>();
+            int i = 1;
+            for(String icon:request.getIcons()){
+                AreaIcon areaIcon = new AreaIcon();
+                areaIcon.setIcon(icon);
+                areaIcon.setAreaId(area.getId());
+                areaIcon.setSort(i);
+                areaIconList.add(areaIcon);
+                i++;
+            }
+            if(!areaIconList.isEmpty()){
+                areaIconService.saveBatch(areaIconList);
+            }
         }
         return ApiResult.ok("添加场馆信息成功");
     }
