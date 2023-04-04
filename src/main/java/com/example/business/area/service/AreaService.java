@@ -43,7 +43,7 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
         //判断场馆是否存在
         LambdaQueryWrapper<Area> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Area::getName,request.getName());
-        if(!this.list().isEmpty()) return ApiResult.fail("场馆已存在");
+        if(this.list().size()>0) return ApiResult.fail("场馆已存在");
 
         //保存场馆信息
         Area area = new Area();
