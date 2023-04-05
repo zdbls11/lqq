@@ -39,11 +39,11 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
     private MessageService messageService;
 
     @Transactional
-    public ApiResult<?> addArea(AddAreaRequest request){
+    public ApiResult<?> addArea(AddAreaRequest request) {
         //判断场馆是否存在
         LambdaQueryWrapper<Area> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Area::getName,request.getName());
-        if(this.list(wrapper).size()>0) return ApiResult.fail("场馆已存在");
+        wrapper.eq(Area::getName, request.getName());
+        if (this.list(wrapper).size() > 0) return ApiResult.fail("场馆已存在");
 
         //保存场馆信息
         Area area = new Area();
@@ -54,10 +54,10 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
         this.save(area);
 
         //保存场馆图片信息
-        if(request.getIcons()!=null&&request.getIcons().size()>0){
+        if (request.getIcons() != null && request.getIcons().size() > 0) {
             List<AreaIcon> areaIconList = new ArrayList<>();
             int i = 1;
-            for(String icon:request.getIcons()){
+            for (String icon : request.getIcons()) {
                 AreaIcon areaIcon = new AreaIcon();
                 areaIcon.setIcon(icon);
                 areaIcon.setAreaId(area.getId());
@@ -65,7 +65,7 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
                 areaIconList.add(areaIcon);
                 i++;
             }
-            if(!areaIconList.isEmpty()){
+            if (!areaIconList.isEmpty()) {
                 areaIconService.saveBatch(areaIconList);
             }
         }
@@ -73,73 +73,76 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
     }
 
     @Transactional
-    public ApiResult<?> deleteArea(Long id){
+    public ApiResult<?> deleteArea(Long id) {
         //删除场馆图片信息
         LambdaQueryWrapper<AreaIcon> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(AreaIcon::getAreaId,id);
+        wrapper.eq(AreaIcon::getAreaId, id);
         areaIconService.remove(wrapper);
         //删除场馆信息
         LambdaQueryWrapper<Area> wrapper1 = new LambdaQueryWrapper<>();
-        wrapper1.eq(Area::getId,id);
+        wrapper1.eq(Area::getId, id);
         this.remove(wrapper1);
         return ApiResult.ok("删除场馆信息成功");
     }
 
     @Transactional
-    public ApiResult<?> updateArea(AddAreaRequest request){
+    public ApiResult<?> updateArea(AddAreaRequest request) {
         //判断场馆是否存在
         LambdaQueryWrapper<Area> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Area::getId,request.getId());
-        if(this.list(wrapper).size()!=1) return ApiResult.fail("场馆不存在");
+        wrapper.eq(Area::getId, request.getId());
+        if (this.list(wrapper).size() != 1) return ApiResult.fail("场馆不存在");
 
         //保存场馆信息
         Area area = this.getOne(wrapper);
-        if(request.getName()!=null)area.setName(request.getName());
-        if(request.getIs_enable()!=null)area.setIsEnable(request.getIs_enable());
-        if(request.getRemark()!=null)area.setRemark(request.getRemark());
-        if(request.getNum()!=null)area.setNum(request.getNum());
+        if (request.getName() != null) area.setName(request.getName());
+        if (request.getIs_enable() != null) area.setIsEnable(request.getIs_enable());
+        if (request.getRemark() != null) area.setRemark(request.getRemark());
+        if (request.getNum() != null) area.setNum(request.getNum());
         this.updateById(area);
 
-        //保存场馆图片信息
-        LambdaQueryWrapper<AreaIcon> wrapper1 = new LambdaQueryWrapper<>();
-        wrapper1.eq(AreaIcon::getAreaId,request.getId());
-        areaIconService.remove(wrapper1);
+        if (request.getIcons() != null && request.getIcons().size() > 0) {
+            //保存场馆图片信息
+            LambdaQueryWrapper<AreaIcon> wrapper1 = new LambdaQueryWrapper<>();
+            wrapper1.eq(AreaIcon::getAreaId, request.getId());
+            areaIconService.remove(wrapper1);
 
-        List<AreaIcon> areaIconList = new ArrayList<>();
-        int i = 1;
-        for(String icon:request.getIcons()){
-            AreaIcon areaIcon = new AreaIcon();
-            areaIcon.setIcon(icon);
-            areaIcon.setAreaId(area.getId());
-            areaIcon.setSort(i);
-            areaIconList.add(areaIcon);
-            i++;
+            List<AreaIcon> areaIconList = new ArrayList<>();
+            int i = 1;
+            for (String icon : request.getIcons()) {
+                AreaIcon areaIcon = new AreaIcon();
+                areaIcon.setIcon(icon);
+                areaIcon.setAreaId(area.getId());
+                areaIcon.setSort(i);
+                areaIconList.add(areaIcon);
+                i++;
+            }
+            if (!areaIconList.isEmpty()) {
+                areaIconService.saveBatch(areaIconList);
+            }
         }
-        if(!areaIconList.isEmpty()){
-            areaIconService.saveBatch(areaIconList);
-        }
+
         return ApiResult.ok("修改场馆信息成功");
     }
 
-    public ApiResult<?> queryArea(QueryAreaRequest request){
+    public ApiResult<?> queryArea(QueryAreaRequest request) {
         LambdaQueryWrapper<Area> wrapper = new LambdaQueryWrapper<>();
-        if(request.getName()!=null){
-            wrapper.like(Area::getName,request.getName());
+        if (request.getName() != null) {
+            wrapper.like(Area::getName, request.getName());
         }
-        if(request.getMax()!=null){
-            wrapper.lt(Area::getNum,request.getMax());
+        if (request.getMax() != null) {
+            wrapper.lt(Area::getNum, request.getMax());
         }
-        if(request.getMin()!=null){
-            wrapper.gt(Area::getNum,request.getMin());
+        if (request.getMin() != null) {
+            wrapper.gt(Area::getNum, request.getMin());
         }
-        if(request.getIs_enable()!=null){
-            wrapper.eq(Area::getIsEnable,request.getIs_enable());
+        if (request.getIs_enable() != null) {
+            wrapper.eq(Area::getIsEnable, request.getIs_enable());
         }
-        Page<Area> page = PageHelper.startPage(request.getPage(),request.getPage_size());
+        Page<Area> page = PageHelper.startPage(request.getPage(), request.getPage_size());
         PageInfo<Area> list = PageInfo.of(this.list(wrapper));
         page.close();
         List<QueryAreaResponse> responses = new ArrayList<>();
-        for(Area area :list.getList()){
+        for (Area area : list.getList()) {
             QueryAreaResponse response = new QueryAreaResponse();
             response.setId(area.getId());
             response.setName(area.getName());
@@ -148,6 +151,6 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
             response.setIcons(areaMapper.findIcon(area.getId()));
             responses.add(response);
         }
-        return ApiResult.ok(responses,String.valueOf(list.getTotal()));
+        return ApiResult.ok(responses, String.valueOf(list.getTotal()));
     }
 }
