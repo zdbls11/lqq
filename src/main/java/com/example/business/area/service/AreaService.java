@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author: liuwenpeng
@@ -37,6 +38,10 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
 
     @Resource
     private MessageService messageService;
+
+    public Boolean is_not_null(String string){
+        return string != null && !string.equals("");
+    }
 
     @Transactional
     public ApiResult<?> addArea(AddAreaRequest request) {
@@ -126,7 +131,7 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
 
     public ApiResult<?> queryArea(QueryAreaRequest request) {
         LambdaQueryWrapper<Area> wrapper = new LambdaQueryWrapper<>();
-        if (request.getName() != null) {
+        if (this.is_not_null(request.getName())) {
             wrapper.like(Area::getName, request.getName());
         }
         if (request.getMax() != null) {
