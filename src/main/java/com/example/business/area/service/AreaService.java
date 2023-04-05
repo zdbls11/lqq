@@ -94,10 +94,10 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
 
         //保存场馆信息
         Area area = this.getOne(wrapper);
-        area.setName(request.getName());
-        area.setIsEnable(request.getIs_enable());
-        area.setRemark(request.getRemark());
-        area.setNum(request.getNum());
+        if(request.getName()!=null)area.setName(request.getName());
+        if(request.getIs_enable()!=null)area.setIsEnable(request.getIs_enable());
+        if(request.getRemark()!=null)area.setRemark(request.getRemark());
+        if(request.getNum()!=null)area.setNum(request.getNum());
         this.updateById(area);
 
         //保存场馆图片信息
