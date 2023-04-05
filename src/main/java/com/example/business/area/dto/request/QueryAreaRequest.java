@@ -16,6 +16,8 @@ public class QueryAreaRequest {
 
     private Integer min;
 
+    private Integer is_enable;
+
     private Integer page;
 
     private Integer page_size;

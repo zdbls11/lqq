@@ -132,6 +132,9 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
         if(request.getMin()!=null){
             wrapper.gt(Area::getNum,request.getMin());
         }
+        if(request.getIs_enable()!=null){
+            wrapper.eq(Area::getIsEnable,request.getIs_enable());
+        }
         Page<Area> page = PageHelper.startPage(request.getPage(),request.getPage_size());
         PageInfo<Area> list = PageInfo.of(this.list(wrapper));
         page.close();
