@@ -94,6 +94,13 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             user.setIcon(request.getIcon());
         }
 
+        if(request.getName()!=null){
+            user.setName(request.getName());
+        }
+
+        if(request.getMobile()!=null){
+            user.setMobile(request.getMobile());
+        }
         this.updateById(user);
         return ApiResult.ok("修改成功");
     }
