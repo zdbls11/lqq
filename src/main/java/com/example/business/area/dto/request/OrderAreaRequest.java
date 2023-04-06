@@ -19,7 +19,7 @@ public class OrderAreaRequest {
 
     private List<Integer> times;
 
-    private Date order_date;
+    private String order_date;
 
     private Integer num;
 }

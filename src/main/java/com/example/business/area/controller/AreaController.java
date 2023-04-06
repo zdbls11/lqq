@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.text.ParseException;
 
 /**
  * @Author: liuwenpeng
@@ -48,7 +49,7 @@ public class AreaController {
 
     //场馆预约操作
     @RequestMapping("/order_area")
-    public ApiResult<?> orderArea(@RequestBody @Valid OrderAreaRequest request) {
+    public ApiResult<?> orderArea(@RequestBody @Valid OrderAreaRequest request) throws ParseException {
         return orderService.orderArea(request);
     }
 

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +63,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
 
 
     @Transactional
-    public ApiResult<?> orderArea(OrderAreaRequest request) {
+    public ApiResult<?> orderArea(OrderAreaRequest request) throws ParseException {
         //判断场馆是否存在
         LambdaQueryWrapper<Area> areaLambdaQueryWrapper = new LambdaQueryWrapper<>();
         areaLambdaQueryWrapper.eq(Area::getId, request.getArea_id());
@@ -75,7 +76,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(Order::getAreaId, request.getArea_id());
             wrapper.eq(Order::getTime, time);
-            wrapper.like(Order::getOrderDate,sdf.format(request.getOrder_date()));
+            wrapper.like(Order::getOrderDate,request.getOrder_date());
             List<Order> orders = this.list(wrapper);
             //该场地在此时间段内已预约人数
             int all = 0;
@@ -84,11 +85,11 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             }
             //如果剩余可容纳人数小于当前预约人数，则预约失败
             if (area.getNum() - all < request.getNum()) {
-                return ApiResult.fail(area.getName() + " 在" + sdf.format(request.getOrder_date()) + "的" + time_map.get(time) + "可容纳人数不足");
+                return ApiResult.fail(area.getName() + " 在" + sdf.format(sdf.parse(request.getOrder_date())) + "的" + time_map.get(time) + "可容纳人数不足");
             }
 
             Order order = new Order();
-            order.setOrderDate(request.getOrder_date());
+            order.setOrderDate(sdf.parse(request.getOrder_date()));
             order.setAreaId(request.getArea_id());
             order.setNum(request.getNum());
             order.setTime(time);
