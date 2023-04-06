@@ -135,6 +135,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             response.setUser_id(order.getUserId());
             response.setTime(time_map.get(order.getTime()));
             response.setDay(sdf.format(order.getOrderDate()));
+            response.setNum(order.getNum());
             responses.add(response);
         }
         return ApiResult.ok(responses, String.valueOf(orders.getTotal()));

@@ -14,6 +14,8 @@ public class QueryOrderRequest {
 
     private Integer time;
 
+    private String day;
+
     private String user;
 
     private Integer page;

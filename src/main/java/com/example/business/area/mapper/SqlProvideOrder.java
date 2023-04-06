@@ -28,6 +28,9 @@ public class SqlProvideOrder {
         if(request.getTime()!=null){
             sql+=" and order.time = '"+request.getTime()+"' ";
         }
+        if(request.getDay()!=null){
+            sql+=" and order.order_date like '%"+request.getDay()+"%' ";
+        }
         if(request.getRole()==1){
             sql+=" and order.user_id = '"+request.getUser_id()+"' ";
         }

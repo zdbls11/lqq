@@ -26,4 +26,6 @@ public class QueryOrderResponse {
     private String time;
 
     private String day;
+
+    private Integer num;
 }
