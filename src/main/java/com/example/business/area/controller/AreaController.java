@@ -2,6 +2,7 @@ package com.example.business.area.controller;
 
 import com.example.business.area.dto.request.*;
 import com.example.business.area.service.AreaService;
+import com.example.business.area.service.MessageService;
 import com.example.business.area.service.OrderService;
 import com.example.business.user.entity.ApiResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ public class AreaController {
 
     @Resource
     private OrderService orderService;
+
+    @Resource
+    private MessageService messageService;
 
     //场馆增删改查 Post Get Put Patch Delete
     @RequestMapping("/area/add")
@@ -68,5 +72,18 @@ public class AreaController {
     @RequestMapping("/select_leave_num")
     public ApiResult<?> selectLeaveNum(@Valid @RequestBody SelectLeaveNumRequest request){
         return orderService.selectLeaveNum(request);
+    }
+
+    //查询公告
+    @RequestMapping("/select_message")
+    public ApiResult<?> selectMessage(){
+        return messageService.selectMessage();
+    }
+
+    //修改公告
+    @RequestMapping("/update_message")
+    public ApiResult<?> updateMessage(@RequestParam String message){
+        messageService.updateMessage(message);
+         return ApiResult.ok();
     }
 }
