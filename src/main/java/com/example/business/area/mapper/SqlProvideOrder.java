@@ -13,7 +13,8 @@ public class SqlProvideOrder {
 
     public String queryOrder(QueryOrderRequest request){
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String sql =" select * from `order`" +
                 " left join area on area.id = order.area_id " +
                 " left join user on user.id = order.user_id " +
@@ -30,7 +31,7 @@ public class SqlProvideOrder {
         if(request.getRole()==1){
             sql+=" and order.user_id = '"+request.getUser_id()+"' ";
         }
-        sql+=" and `order`.order_date > '"+sdf.format(date)+"' ";
+        sql+=" and `order`.order_date > '"+sdf.format(date)+" 00:00:00' ";
         sql+= " order by `order`.order_date desc,`order`.time desc";
         return sql;
     }
