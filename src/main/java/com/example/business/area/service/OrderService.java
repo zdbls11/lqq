@@ -75,6 +75,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(Order::getAreaId, request.getArea_id());
             wrapper.eq(Order::getTime, time);
+            wrapper.like(Order::getOrderDate,sdf.format(request.getOrder_date()));
             List<Order> orders = this.list(wrapper);
             //该场地在此时间段内已预约人数
             int all = 0;
