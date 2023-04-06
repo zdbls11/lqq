@@ -83,7 +83,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             }
             //如果剩余可容纳人数小于当前预约人数，则预约失败
             if (area.getNum() - all < request.getNum()) {
-                return ApiResult.fail(area.getName() + "场馆在" + request.getOrder_date() + "的" + time_map.get(time) + "可容纳人数不足");
+                return ApiResult.fail(area.getName() + " 在" + sdf.format(request.getOrder_date()) + "的" + time_map.get(time) + "可容纳人数不足");
             }
 
             Order order = new Order();
