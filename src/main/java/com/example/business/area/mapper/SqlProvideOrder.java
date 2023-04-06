@@ -2,6 +2,9 @@ package com.example.business.area.mapper;
 
 import com.example.business.area.dto.request.QueryOrderRequest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @Author: liuwenpeng
  * @Date : 2023/3/9
@@ -9,7 +12,9 @@ import com.example.business.area.dto.request.QueryOrderRequest;
 public class SqlProvideOrder {
 
     public String queryOrder(QueryOrderRequest request){
-        String sql =" select * from order" +
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sql =" select * from `order`" +
                 " left join area on area.id = order.area_id " +
                 " left join user on user.id = order.user_id " +
                 "where 1=1 ";
@@ -25,6 +30,8 @@ public class SqlProvideOrder {
         if(request.getRole()==1){
             sql+=" and order.user_id = '"+request.getUser_id()+"' ";
         }
+        sql+=" and `order`.order_date > '"+sdf.format(date)+"' ";
+        sql+= " order by `order`.order_date desc,`order`.time desc";
         return sql;
     }
 }
