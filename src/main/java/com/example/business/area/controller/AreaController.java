@@ -53,7 +53,11 @@ public class AreaController {
     public ApiResult<?> deleteOrderArea(@RequestBody @Valid OrderAreaRequest request) {
         return orderService.deleteOrderArea(request);
     }
-
+    //取消预约
+    @RequestMapping("/delete_order/{id}")
+    public ApiResult<?> deleteOrder(@PathVariable Long id) {
+        return orderService.deleteOrder(id);
+    }
     //预约信息分页查询
     @RequestMapping("/query_order")
     public ApiResult<?> queryOrder(@Valid @RequestBody QueryOrderRequest request){
