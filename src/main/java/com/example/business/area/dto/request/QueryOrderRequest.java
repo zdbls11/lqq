@@ -25,4 +25,7 @@ public class QueryOrderRequest {
     private Integer role;
 
     private Long user_id;
+
+    //true 为查历史，false为查当天以及之后的预约信息
+    private Boolean is_history = false;
 }
