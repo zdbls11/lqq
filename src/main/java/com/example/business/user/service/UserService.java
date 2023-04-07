@@ -70,6 +70,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             response.setMobile(user.getMobile());
             response.setName(user.getName());
             response.setRole(user.getRole());
+            response.setIs_enable(user.getIsEnable());
             response.setUsername(user.getUsername());
             response.setId(user.getId());
             responses.add(response);
@@ -100,6 +101,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
         if(request.getMobile()!=null){
             user.setMobile(request.getMobile());
+        }
+        if(request.getIs_enable()!=null){
+            user.setIsEnable(request.getIs_enable());
         }
         this.updateById(user);
         return ApiResult.ok("修改成功");

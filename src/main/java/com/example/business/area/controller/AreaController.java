@@ -83,8 +83,8 @@ public class AreaController {
 
     //修改公告
     @RequestMapping("/update_message")
-    public ApiResult<?> updateMessage(@RequestParam String message){
-        messageService.updateMessage(message);
+    public ApiResult<?> updateMessage(@Valid @RequestBody MessageRequest request){
+        messageService.updateMessage(request);
          return ApiResult.ok();
     }
 }

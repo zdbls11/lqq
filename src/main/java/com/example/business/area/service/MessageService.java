@@ -1,6 +1,7 @@
 package com.example.business.area.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.business.area.dto.request.MessageRequest;
 import com.example.business.area.entity.Message;
 import com.example.business.area.mapper.MessageMapper;
 import com.example.business.user.entity.ApiResult;
@@ -23,9 +24,9 @@ public class MessageService extends ServiceImpl<MessageMapper, Message> {
         return ApiResult.ok(message);
     }
 
-    public void updateMessage(String message) {
+    public void updateMessage(MessageRequest request) {
         Message byId = this.getById(1L);
-        byId.setMessage(message);
+        byId.setMessage(request.getMessage());
         this.updateById(byId);
         ApiResult.ok();
     }

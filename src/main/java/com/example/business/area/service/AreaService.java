@@ -135,10 +135,10 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
             wrapper.like(Area::getName, request.getName());
         }
         if (request.getMax() != null) {
-            wrapper.lt(Area::getNum, request.getMax());
+            wrapper.le(Area::getNum, request.getMax());
         }
         if (request.getMin() != null) {
-            wrapper.gt(Area::getNum, request.getMin());
+            wrapper.ge(Area::getNum, request.getMin());
         }
         if (request.getIs_enable() != null) {
             wrapper.eq(Area::getIsEnable, request.getIs_enable());

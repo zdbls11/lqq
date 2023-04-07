@@ -7,7 +7,7 @@ import lombok.Data;
  * @Date : 2023/3/1
  */
 @Data
-public class QueryUserRequest {
+public class  QueryUserRequest {
     /**
      * 页码
      */

@@ -33,4 +33,5 @@ public class UpdateRequest {
     //手机号
     private String mobile;
 
+    private Boolean is_enable;
 }

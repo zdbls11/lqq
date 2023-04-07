@@ -8,10 +8,7 @@ import com.example.business.user.entity.User;
 import com.example.business.user.mapper.UserMapper;
 import com.example.business.user.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -23,6 +20,7 @@ import java.util.Objects;
  * @Date : 2023/2/28
  */
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Resource

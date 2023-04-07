@@ -14,6 +14,7 @@ public class QueryUserResponse {
     private String mobile;
     private Integer role;
     private String username;
+    private Boolean is_enable;
     @JsonSerialize(using= ToStringSerializer.class)
     private Long id;
 }
