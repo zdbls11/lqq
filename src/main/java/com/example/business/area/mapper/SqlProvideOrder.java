@@ -35,7 +35,7 @@ public class SqlProvideOrder {
             sql+=" and order.user_id = '"+request.getUser_id()+"' ";
         }
         if(!request.getIs_history()){
-            sql+=" and `order`.order_date > '"+sdf.format(date)+" 00:00:00' ";
+            sql+=" and `order`.order_date >= '"+sdf.format(date)+" 00:00:00' ";
         }else {
             sql+=" and `order`.order_date < '"+sdf.format(date)+" 00:00:00' ";
         }
