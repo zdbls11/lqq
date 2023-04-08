@@ -154,6 +154,7 @@ public class AreaService extends ServiceImpl<AreaMapper, Area> {
             response.setNum(area.getNum());
             response.setIs_enable(area.getIsEnable());
             response.setIcons(areaMapper.findIcon(area.getId()));
+            response.setRemark(area.getRemark());
             responses.add(response);
         }
         return ApiResult.ok(responses, String.valueOf(list.getTotal()));
